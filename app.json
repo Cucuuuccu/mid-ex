@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "userInterfaceStyle": "automatic",
+    "scheme": "acme",
+    "plugins": [
+      "expo-router"
+    ],
+    "name": "mid-exam",
+    "slug": "mid-exam",
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "90f0c9f0-a7c5-42ce-982f-fa9a9d88dc56"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/90f0c9f0-a7c5-42ce-982f-fa9a9d88dc56"
+    },
+    "android": {},
+    "ios": {}
+  }
+}
