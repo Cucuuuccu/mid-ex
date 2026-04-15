@@ -5,8 +5,12 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useEffect } from "react";
 import { clearAllData, loadData, saveData } from "../utils/storage";
 import { RefreshAllMissions } from "../utils/mission_checker";
+import { useTheme } from "../utils/ThemeContext";
+
 export default function Cover() {
     const router = useRouter();
+    const { theme } = useTheme();
+
     const checkIsNewDay = async () => {
     const now = new Date();
 
@@ -37,22 +41,22 @@ export default function Cover() {
     handleCheckDay();
 }, []);
     return (
-        <Pressable style={styles.Cover} onPress={() => router.push({ pathname: "/center/mission_list", params: { type: "default", title: "任務表" } })}>
+        <Pressable style={[styles.Cover, { backgroundColor: theme.background }]} onPress={() => router.push({ pathname: "/center/mission_list", params: { type: "default", title: "任務表" } })}>
             <View style={{justifyContent:"center", alignItems:"flex-start"}}>
-                <Text style={styles.CoverText}>
+                <Text style={[styles.CoverText, { color: theme.text }]}>
                     Daily
                 </Text>
-                <Text style={styles.CoverText}>
+                <Text style={[styles.CoverText, { color: theme.text }]}>
                     Mission
                 </Text>
-                <Text style={styles.CoverText}>
+                <Text style={[styles.CoverText, { color: theme.text }]}>
                     Reminder
                 </Text>
             </View>
-            <Text style={[styles.CoverText, {fontSize:30}]}>
+            <Text style={[styles.CoverText, {fontSize:30, color: theme.text }]}>
                 每日任務簽到器
             </Text>
-            <Text style={[styles.CoverText, {fontSize:30, marginTop: 60}]}>
+            <Text style={[styles.CoverText, {fontSize:30, marginTop: 60, color: theme.text }]}>
                 Tap To Start
             </Text>
         </Pressable>
@@ -70,7 +74,5 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 48,
         color: "#333333",
-        fontFamily:"roboto-regular",
-        fontFamily:"inter",
     }
 });

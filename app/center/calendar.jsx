@@ -3,11 +3,13 @@ import { StyleSheet, Text, View, Pressable } from "react-native";
 import { useState, useEffect } from "react";
 import { checkAllMissions } from "../../utils/mission_checker";
 import { loadData, saveData } from "../../utils/storage";
+import { useTheme } from "../../utils/ThemeContext";
 
 export default function Calendar() {
     const now = new Date();
     const [allComplete, setAllComplete] = useState(false);
     const [monthData, setMonthData] = useState([]);
+    const { theme } = useTheme();
 
     const year = now.getFullYear();
     const month = now.getMonth(); // 0~11
@@ -55,7 +57,7 @@ export default function Calendar() {
     }, []);
 
     return (
-        <View style={styles.Settings}>
+        <View style={[styles.Settings, { backgroundColor: theme.background }]}>
             <FlatList
                 data={monthData}
                 keyExtractor={(item) => item.day.toString()}
@@ -65,14 +67,16 @@ export default function Calendar() {
                     <Pressable
                         style={[
                             styles.dayBox,
+                            { backgroundColor: theme.card },
                             item.complete && styles.dayBoxComplete,
                             (!item.complete && item.day < today) && styles.dayBoxUnComplete,
-                            item.day === today && styles.todayBox,
+                            item.day === today && [styles.todayBox, { borderColor: theme.text }],
                         ]}
                     >
                         <Text
                             style={[
                                 styles.dayText,
+                                { color: theme.text },
                                 item.complete && styles.dayTextComplete,
                             ]}
                         >
@@ -82,7 +86,7 @@ export default function Calendar() {
                 )}
             />
 
-            <Text style={styles.statusText}>
+            <Text style={[styles.statusText, { color: theme.text }]}>
                 {allComplete ? "今日任務已完成！" : "今日任務未完成！"}
             </Text>
         </View>
@@ -96,7 +100,7 @@ const styles = StyleSheet.create({
         justifyContent: "flex-start",
         backgroundColor: "#D9D9D9",
         width: "100%",
-        paddingTop: 80,
+        paddingTop: 100,
     },
     calendarContainer: {
         alignItems: "center",

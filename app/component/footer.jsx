@@ -3,9 +3,11 @@ import * as ImagePicker from "expo-image-picker";
 import { pickImage } from "../../utils/photoHandler";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { StyleSheet, Text, Image, View, Button, Pressable} from "react-native";
+import { useTheme } from "../../utils/ThemeContext";
 
 export default function Footer({ type = "default", title = "" }) {
     const router = useRouter();
+    const { theme } = useTheme();
 
     const getFooterContent = () => {
         switch (type) {
@@ -40,7 +42,7 @@ export default function Footer({ type = "default", title = "" }) {
         }
     };
   return (
-    <View style={[styles.Footer]}>
+    <View style={[styles.Footer, { backgroundColor: theme.footerBg }]}>
         {getFooterContent()}
     </View>
   );

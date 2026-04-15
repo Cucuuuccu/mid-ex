@@ -3,11 +3,13 @@ import { StyleSheet, Text, Image, View, ScrollView, TouchableOpacity, Pressable 
 import { saveData, loadData, deleteData, clearAllData } from "../../utils/storage";
 import { useLocalSearchParams,useFocusEffect, useRouter, Stack } from "expo-router";
 import { useEffect, useCallback, useState } from "react";
+import { useTheme } from "../../utils/ThemeContext";
 
 export default function MissionList() {
     const { title, type } = useLocalSearchParams();
     const router = useRouter();
     const [data, setData] = useState(null);
+    const { theme } = useTheme();
 
 
     const handleLoad = async () => {
@@ -23,7 +25,7 @@ export default function MissionList() {
     );
     
     return (
-        <FlatList style={styles.MissionList}
+        <FlatList style={[styles.MissionList, { backgroundColor: theme.background }]}
             data={data}
             keyExtractor={(item) => item.id.toString()}
             contentContainerStyle={{
@@ -34,7 +36,7 @@ export default function MissionList() {
             }}
             renderItem={({ item }) => (
                 <Pressable
-                    style={styles.MissionTab}
+                    style={[styles.MissionTab, { backgroundColor: theme.card }]}
                     onPress={() => {
                         console.log("點擊了這筆資料");
                         console.log("id:", item.id);
@@ -48,7 +50,7 @@ export default function MissionList() {
                         source={{ uri: item.icon }}
                     />
                     <View style={{ marginLeft: 15, justifyContent: "center", alignItems: "center" }}>
-                        <Text style={styles.MissionTabText}>
+                        <Text style={[styles.MissionTabText, { color: theme.text }]}>
                             {item.gameName.length > 6 ? item.gameName.slice(0, 5) + "..." : item.gameName}
                         </Text>
                     </View>
@@ -74,19 +76,19 @@ export default function MissionList() {
                     >
                         <Image
                             source={require("../../assets/icons/trash.png")}
-                            style={{ width: 24, height: 24 }}
+                            style={{ width: 24, height: 24, tintColor: theme.text }}
                         />
                     </Pressable>
                 </Pressable>
             )}
             ListFooterComponent={
-                <Pressable style={styles.MissionTab} onPress={() => router.push("/mission_adder")}>
+                <Pressable style={[styles.MissionTab, { backgroundColor: theme.card }]} onPress={() => router.push("/mission_adder")}>
                     <View style={[{marginLeft: 15},styles.cross]}>
                         <View style={styles.lineHorizontal} />
                         <View style={styles.lineVertical} />
                     </View>
                     <View style={{ marginLeft: 15, justifyContent: "center", alignItems: "center" }}>
-                        <Text style={styles.MissionTabText}>
+                        <Text style={[styles.MissionTabText, { color: theme.text }]}>
                             點選加入遊戲
                         </Text>
                     </View>

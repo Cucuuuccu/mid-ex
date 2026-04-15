@@ -3,9 +3,11 @@ import * as ImagePicker from "expo-image-picker";
 import { pickImage } from "../../utils/photoHandler";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { StyleSheet, Text, Image, View, Button, Pressable} from "react-native";
+import { useTheme } from "../../utils/ThemeContext";
 
 export default function Header({ type = "default", title = "" }) {
     const router = useRouter();
+    const { theme } = useTheme();
 
     const getHeaderContent = () => {
         switch (type) {
@@ -17,7 +19,7 @@ export default function Header({ type = "default", title = "" }) {
             );
         default:
             return (
-                <Text style={[styles.HeaderText, {marginRight: 20}]}>
+                <Text style={[styles.HeaderText, { marginRight: 20, color: theme.headerText }]}>
                     {title}
                 </Text>
             );
@@ -38,7 +40,7 @@ export default function Header({ type = "default", title = "" }) {
         }
     };
   return (
-    <View style={[styles.Header, getHeaderStyle()]}>
+    <View style={[styles.Header, getHeaderStyle(), { backgroundColor: theme.headerBg }]}>
         {getHeaderContent()}
     </View>
   );

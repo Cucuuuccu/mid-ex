@@ -4,14 +4,17 @@ import { StyleSheet, Text, Image, View, ScrollView, TouchableOpacity, Pressable 
 import { useGlobalSearchParams, useRouter, Stack, Slot } from "expo-router";
 import Header from "../component/header";
 import Footer from "../component/footer";
+import { useTheme } from "../../utils/ThemeContext";
+
 export default function Center() {
     const { type = "default", title = "任務表" } = useGlobalSearchParams();
     const router = useRouter();
+    const { theme } = useTheme();
     const activePage = "home";
     return (
-        <View style={styles.Page}>
+        <View style={[styles.Page, { backgroundColor: theme.background }]}>
             <Header type={type} title={title} />
-            <View style={styles.Content}>
+            <View style={[styles.Content, { backgroundColor: theme.background }]}>
                 <Slot />
             </View>
             <Footer type={type} title={title} />

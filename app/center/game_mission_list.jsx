@@ -1,14 +1,16 @@
-
 import {Alert, Button, FlatList, StyleSheet, Text, Image, View, ScrollView, TouchableOpacity, Pressable  } from "react-native";
 import { saveData, loadData, deleteData } from "../../utils/storage";
 import { useLocalSearchParams,useFocusEffect, useRouter, Stack } from "expo-router";
 import { useEffect, useCallback, useState } from "react";
+import { useTheme } from "../../utils/ThemeContext";
 
 export default function MissionList() {
     const { id, title, type } = useLocalSearchParams();
     const router = useRouter();
     const [data, setData] = useState(null);
     const [complete, setComplete] = useState(false);
+    const { theme } = useTheme();
+
     const handleToggleComplete = async (item) => {
         const loadedData = await loadData(`mission_list_${id}`);
         console.log("載入的任務列表：", loadedData, "id:",id);
@@ -33,7 +35,7 @@ export default function MissionList() {
     );
     
     return (
-        <FlatList style={styles.MissionList}
+        <FlatList style={[styles.MissionList, { backgroundColor: theme.background }]}
             data={data}
             keyExtractor={(item) => item.id.toString()}
             contentContainerStyle={{
@@ -44,7 +46,7 @@ export default function MissionList() {
             }}
             renderItem={({ item }) => (
                 <Pressable
-                    style={styles.MissionTab}
+                    style={[styles.MissionTab, { backgroundColor: theme.card }]}
                     onPress={() => {
                         console.log("點擊了這筆資料");
                         console.log("id:", item.id);
@@ -64,7 +66,7 @@ export default function MissionList() {
                         )
                     }
                     <View style={{ marginLeft: 15, justifyContent: "center", alignItems: "center" }}>
-                        <Text style={styles.MissionTabText}>
+                        <Text style={[styles.MissionTabText, { color: theme.text }]}>
                             {item.gameName.length > 6 ? item.gameName.slice(0, 5) + "..." : item.gameName}
                         </Text>
                     </View>
@@ -87,18 +89,18 @@ export default function MissionList() {
                             ]
                         );
                     }}>
-                        <Image source={require("../../assets/icons/trash.png")} style={{ width: 24, height: 24 }} />
+                        <Image source={require("../../assets/icons/trash.png")} style={{ width: 24, height: 24, tintColor: theme.text }} />
                     </Pressable>
                 </Pressable>
             )}
             ListFooterComponent={
-                <Pressable style={styles.MissionTab} onPress={() => router.push({pathname: "/game_mission_adder", params: {id: id, title: ``, type: "back_button"}})}>
+                <Pressable style={[styles.MissionTab, { backgroundColor: theme.card }]} onPress={() => router.push({pathname: "/game_mission_adder", params: {id: id, title: ``, type: "back_button"}})}>
                     <View style={[{marginLeft: 15},styles.cross]}>
                         <View style={styles.lineHorizontal} />
                         <View style={styles.lineVertical} />
                     </View>
                     <View style={{ marginLeft: 15, justifyContent: "center", alignItems: "center" }}>
-                        <Text style={styles.MissionTabText}>
+                        <Text style={[styles.MissionTabText, { color: theme.text }]}>
                             點選加入任務
                         </Text>
                     </View>

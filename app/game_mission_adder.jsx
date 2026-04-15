@@ -5,12 +5,16 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useState } from "react";
 import { pickImage } from "../utils/photoHandler";
 import { loadData, setData, saveData } from "../utils/storage";
+import { useTheme } from "../utils/ThemeContext";
+
 export default function MissionAdder() {
     
     const { id, title, type } = useLocalSearchParams();
     const router = useRouter();
     const [photo, setPhoto] = useState(null);
     const [gameName, setGameName] = useState("");
+    const { theme } = useTheme();
+
     const handleSelectPhoto = async () => {
     const base64String = await pickImage();
     if (base64String) {
@@ -36,16 +40,16 @@ export default function MissionAdder() {
             behavior={Platform.OS === "android" ? "padding" : (Platform.OS === "ios" ? "padding" : "height")}   
         >
             <ScrollView style={{ flex: 1, width: "100%" }} contentContainerStyle={{ flexGrow: 1, alignItems: "center", justifyContent: "center" }}>
-                <Pressable onPress={Keyboard.dismiss} style={styles.MissionAdder}>
+                <Pressable onPress={Keyboard.dismiss} style={[styles.MissionAdder, { backgroundColor: theme.background }]}>
                     <Pressable style={{position: "absolute", top: 20, left: 20 }} onPress={() => router.back()}>
-                        <Image source={require("../assets/icons/back.png")} style={{ width: 32, height: 32}} />
+                        <Image source={require("../assets/icons/back.png")} style={{ width: 32, height: 32, tintColor: theme.text }} />
                     </Pressable>
                     {
                         photo === null ?
                         (
                             <Pressable style={styles.cross} onPress={handleSelectPhoto}>
                                 <View style={styles.lineHorizontal} />
-                                <View style={styles.lineVertical} />
+                                <View style={styles.lineVertical } />
                             </Pressable>
                         ):
                         (
@@ -54,17 +58,18 @@ export default function MissionAdder() {
                             </Pressable>
                         )
                     }
-                    <Text style={[styles.MissionAdderText, { marginTop: 40 }]}>
+                    <Text style={[styles.MissionAdderText, { marginTop: 40, color: theme.text }]}>
                         點擊上傳
                     </Text>
-                    <Text style={styles.MissionAdderText}>
+                    <Text style={[styles.MissionAdderText, { color: theme.text }]}>
                         任務ICON
                     </Text>
                     <TextInput 
-                        style={[styles.MissionAdderInput]}
+                        style={[styles.MissionAdderInput, { backgroundColor: theme.card, color: theme.text }]}
                         onPress={() => console.log("點擊輸入任務名稱")}
                         value={gameName}
                         placeholder="請輸入任務名稱"
+                        placeholderTextColor={theme.subText}
                         onChangeText={setGameName}
                     />
                     <Pressable 
@@ -100,9 +105,7 @@ const styles = StyleSheet.create({
     MissionAdderText: {
         fontWeight: "bold",
         fontSize: 32,
-        color: "a#333333",
-        fontFamily:"roboto-regular",
-        fontFamily:"inter",
+        color: "#333333",
         width: 160,
         textAlign: "center",
     },
