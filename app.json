@@ -7,19 +7,19 @@
     ],
     "name": "mid-exam",
     "slug": "mid-exam",
-    "extra": {
-      "router": {},
-      "eas": {
-        "projectId": "90f0c9f0-a7c5-42ce-982f-fa9a9d88dc56"
-      }
-    },
     "runtimeVersion": {
       "policy": "appVersion"
     },
     "updates": {
-      "url": "https://u.expo.dev/90f0c9f0-a7c5-42ce-982f-fa9a9d88dc56"
+      "url": "https://u.expo.dev/972965be-e969-4c8f-a99b-5a3eeee72201"
     },
     "android": {},
-    "ios": {}
+    "ios": {},
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "972965be-e969-4c8f-a99b-5a3eeee72201"
+      }
+    }
   }
 }

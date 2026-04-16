@@ -47,13 +47,13 @@ export default function MissionAdder() {
                     {
                         photo === null ?
                         (
-                            <Pressable style={styles.cross} onPress={handleSelectPhoto}>
-                                <View style={styles.lineHorizontal} />
-                                <View style={styles.lineVertical } />
+                            <Pressable style={[styles.cross, { backgroundColor: theme.accent }]} onPress={handleSelectPhoto}>
+                                <View style={[styles.lineHorizontal, { backgroundColor: theme.line }]} />
+                                <View style={[styles.lineVertical, { backgroundColor: theme.line }]} />
                             </Pressable>
                         ):
                         (
-                            <Pressable style={styles.cross} onPress={handleSelectPhoto}>
+                            <Pressable style={[styles.cross, { backgroundColor: theme.accent }]} onPress={handleSelectPhoto}>
                                 <Image source={{ uri: photo }} style={{ width: 240, height: 240, borderRadius: 10 }} />
                             </Pressable>
                         )

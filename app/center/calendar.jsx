@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
         justifyContent: "flex-start",
         backgroundColor: "#D9D9D9",
         width: "100%",
-        paddingTop: 100,
+        paddingTop: 80,
     },
     calendarContainer: {
         alignItems: "center",

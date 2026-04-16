@@ -43,13 +43,13 @@ export default function MissionAdder() {
                     {
                         photo === null ?
                         (
-                            <Pressable style={styles.cross} onPress={handleSelectPhoto}>
-                                <View style={styles.lineHorizontal} />
-                                <View style={styles.lineVertical} />
+                            <Pressable style={[styles.cross, { backgroundColor: theme.accent }]} onPress={handleSelectPhoto}>
+                                <View style={[styles.lineHorizontal, { backgroundColor: theme.line }]} />
+                                <View style={[styles.lineVertical, { backgroundColor: theme.line }]} />
                             </Pressable>
                         ):
                         (
-                            <Pressable style={styles.cross} onPress={handleSelectPhoto}>
+                            <Pressable style={[styles.cross, { backgroundColor: theme.accent }]} onPress={handleSelectPhoto}>
                                 <Image source={{ uri: photo }} style={{ width: 240, height: 240, borderRadius: 10 }} />
                             </Pressable>
                         )
@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "flex-start",
-        backgroundColor: "#D9D9D9",
         width: "100%",
         borderTopLeftRadius: 40,
         borderTopRightRadius: 40,
@@ -101,14 +100,12 @@ const styles = StyleSheet.create({
     MissionAdderText: {
         fontWeight: "bold",
         fontSize: 32,
-        color: "#333333",
         width: 160,
         textAlign: "center",
     },
     MissionAdderInput: {
         width: 300,
         height: 50,
-        backgroundColor: "#C2C2C2",
         borderRadius: 10,
         paddingHorizontal: 20,
         marginTop: 30,

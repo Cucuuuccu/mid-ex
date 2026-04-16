@@ -62,7 +62,7 @@ export default function MissionList() {
                                 <Image style={[{backgroundColor: "transparent"},styles.MissionTabImage]}  source={{ uri: item.icon }}   />
                             </View>
                         ) : (
-                            <Image style={[{marginLeft: 15},styles.MissionTabImage]} source={{ uri: item.icon }} />
+                            <Image style={[{marginLeft: 15},styles.MissionTabImage, { backgroundColor: theme.accent }]} source={{ uri: item.icon }} />
                         )
                     }
                     <View style={{ marginLeft: 15, justifyContent: "center", alignItems: "center" }}>
@@ -95,9 +95,9 @@ export default function MissionList() {
             )}
             ListFooterComponent={
                 <Pressable style={[styles.MissionTab, { backgroundColor: theme.card }]} onPress={() => router.push({pathname: "/game_mission_adder", params: {id: id, title: ``, type: "back_button"}})}>
-                    <View style={[{marginLeft: 15},styles.cross]}>
-                        <View style={styles.lineHorizontal} />
-                        <View style={styles.lineVertical} />
+                    <View style={[{marginLeft: 15},styles.cross, { backgroundColor: theme.accent }]}>
+                        <View style={[styles.lineHorizontal, { backgroundColor: theme.line }]} />
+                        <View style={[styles.lineVertical, { backgroundColor: theme.line }]} />
                     </View>
                     <View style={{ marginLeft: 15, justifyContent: "center", alignItems: "center" }}>
                         <Text style={[styles.MissionTabText, { color: theme.text }]}>

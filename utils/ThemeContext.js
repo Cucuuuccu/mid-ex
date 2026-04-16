@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { saveData, loadData } from "./storage";
+import React, { createContext, useState, useContext, useEffect } from "react";
+import { loadData, saveData } from "./storage";
 
 const ThemeContext = createContext({
     isDark: false,
@@ -14,6 +14,9 @@ export const lightTheme = {
     headerText: "#333333",
     text: "#333333",
     card: "#C2C2C2",
+    accent: "#6E6E6E",
+    subText: "#6E6E6E",
+    line: "#D9D9D9",
 };
 
 export const darkTheme = {
@@ -23,23 +26,28 @@ export const darkTheme = {
     headerText: "#E0E0E0",
     text: "#E0E0E0",
     card: "#4d4d4d",
+    accent: "#6E6E6E",
+    subText: "#A0A0A0",
+    line: "#1A1A2E",
 };
 
 export function ThemeProvider({ children }) {
     const [isDark, setIsDark] = useState(false);
 
     useEffect(() => {
-        loadData("dark_mode").then((val) => {
-            if (val === true) setIsDark(true);
-        });
+        const loadTheme = async () => {
+            const savedTheme = await loadData("isDarkMode");
+            if (savedTheme !== null) {
+                setIsDark(savedTheme);
+            }
+        };
+        loadTheme();
     }, []);
 
-    const toggleTheme = () => {
-        setIsDark((prev) => {
-            const next = !prev;
-            saveData("dark_mode", next);
-            return next;
-        });
+    const toggleTheme = async () => {
+        const newMode = !isDark;
+        setIsDark(newMode);
+        await saveData("isDarkMode", newMode);
     };
 
     const theme = isDark ? darkTheme : lightTheme;
@@ -51,6 +59,10 @@ export function ThemeProvider({ children }) {
     );
 }
 
-export function useTheme() {
-    return useContext(ThemeContext);
-}
+export const useTheme = () => {
+    const context = useContext(ThemeContext);
+    if (!context) {
+        return { isDark: false, toggleTheme: () => {}, theme: lightTheme };
+    }
+    return context;
+};
